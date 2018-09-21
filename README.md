@@ -1,4 +1,3 @@
-![logo_t](./demo_images/logo.png)
 
 ## SuperLPR   高性能开源中文车牌识别框架
 
