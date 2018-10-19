@@ -29,7 +29,7 @@ static unsigned int levenshtein_distance(const T &s1, const T &s2) {
 
 
 
-void TEST_ACC(){
+void TEST_ACC(const string&imgFile){
 
     pr::PipelinePR prc("model/cascade.xml",
                        "model/HorizonalFinemapping.prototxt","model/HorizonalFinemapping.caffemodel",
@@ -43,11 +43,11 @@ void TEST_ACC(){
     int n = 0,correct = 0,j = 0,sum = 0;
     char filename[] = "/Users/yujinke/Downloads/general_test/1.txt";
     string pathh = "/Users/yujinke/Downloads/general_test/";
-    file.open(filename, ios::in);
-    while (!file.eof())
+    //file.open(filename, ios::in);
+    //while (!file.eof())
     {
-        file >> imagename;
-        string imgpath = pathh + imagename;
+        //file >> imagename;
+        string imgpath = imgFile;
         std::cout << "------------------------------------------------" << endl;
         cout << "图片名：" << imagename << endl;
         cv::Mat image = cv::imread(imgpath);
@@ -105,7 +105,7 @@ void TEST_ACC(){
 }
 
 
-void TEST_PIPELINE(){
+void TEST_PIPELINE(string file){
 
     pr::PipelinePR prc("model/cascade.xml",
                       "model/HorizonalFinemapping.prototxt","model/HorizonalFinemapping.caffemodel",
@@ -114,9 +114,11 @@ void TEST_PIPELINE(){
                        "model/SegmentationFree.prototxt","model/SegmentationFree.caffemodel"
                     );
 
-    cv::Mat image = cv::imread("/Users/yujinke/ClionProjects/cpp_ocr_demo/test.png");
+	cout<<"111"<<endl;
+    cv::Mat image = cv::imread(file);
 
 
+	cout<<"222"<<endl;
     std::vector<pr::PlateInfo> res = prc.RunPiplineAsImage(image,pr::SEGMENTATION_FREE_METHOD);
 
     for(auto st:res) {
@@ -146,7 +148,6 @@ void TEST_CAM()
                        "model/CharacterRecognization.prototxt","model/CharacterRecognization.caffemodel",
                        "model/SegmentationFree.prototxt","model/SegmentationFree.caffemodel"
     );
-
 
 
 
@@ -186,12 +187,12 @@ void TEST_CAM()
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
-    TEST_ACC();
+    //TEST_ACC(argv[1]);
 
 //    TEST_CAM();
-//    TEST_PIPELINE();
+    TEST_PIPELINE(argv[1]);
 
     return 0 ;
 
